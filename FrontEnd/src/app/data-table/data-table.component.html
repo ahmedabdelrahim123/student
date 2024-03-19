@@ -23,9 +23,27 @@
               <td> ahmed@gmail.com </td>
               <td> egypt </td>
               <td>
-                <i class="fas fa-trash"></i>
+                <a href="#" (click)="showDeleteConfirmation()"><i class="fas fa-trash"></i>
+                </a>
               </td>
             </tr>
     </tbody>
   </table>
 </div> 
+
+<!-- Delete Confirmation Modal -->
+<div >
+  <i class="fa-solid fa-user-xmark"></i>
+  <div class="modal-body">
+    <h2>Are You Sure?</h2>
+    <hr class="mx-5"/>
+      <p>
+        Do you really want to delete this student?
+      </p>
+  </div>
+
+<div class="modal-footer justify-content-center">
+  <button (click)="closeModel()" class="btn btn-secondary mx-1">Cancel</button>
+  <button (click)="deleteStudent()" class="btn btn-danger">Delete</button>
+</div>
+</div>
