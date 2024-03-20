@@ -14,12 +14,16 @@ const Student = sequelize.define('Student', {
     primaryKey: true,
     autoIncrement: true
   },
-  name: {
+  fname: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  age: {
-    type: DataTypes.INTEGER,
+  lname: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  birthdate: {
+    type: DataTypes.DATEONLY, 
     allowNull: false
   },
   gender: {
@@ -45,7 +49,7 @@ const Student = sequelize.define('Student', {
 // Synchronize the model with the database
 (async () => {
   try {
-    await sequelize.sync({ force: true });
+    await sequelize.sync();
     console.log('Student table created successfully');
   } catch (error) {
     console.error('Error syncing Student model:', error);

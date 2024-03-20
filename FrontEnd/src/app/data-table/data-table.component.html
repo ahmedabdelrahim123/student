@@ -15,35 +15,18 @@
       </tr>
     </thead>
     <tbody>
-            <tr >
-                <td><a href="#">Edit</a></td>
-              <td> ahmed </td>
-              <td> 32 </td>
-              <td> male </td>
-              <td> ahmed@gmail.com </td>
-              <td> egypt </td>
-              <td>
-                <a href="#" (click)="showDeleteConfirmation()"><i class="fas fa-trash"></i>
-                </a>
-              </td>
-            </tr>
+      <tr *ngFor="let student of students">
+        <td><a href="#">Edit</a></td>
+        <td>{{ student.name }}</td>
+        <td>{{ student.age }}</td>
+        <td>{{ student.gender }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.country }}</td>
+        <td>
+          <a [routerLink]="'/delete-student/' + student.id"><i class="fas fa-trash"></i></a>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div> 
 
-<!-- Delete Confirmation Modal -->
-<div >
-  <i class="fa-solid fa-user-xmark"></i>
-  <div class="modal-body">
-    <h2>Are You Sure?</h2>
-    <hr class="mx-5"/>
-      <p>
-        Do you really want to delete this student?
-      </p>
-  </div>
-
-<div class="modal-footer justify-content-center">
-  <button (click)="closeModel()" class="btn btn-secondary mx-1">Cancel</button>
-  <button (click)="deleteStudent()" class="btn btn-danger">Delete</button>
-</div>
-</div>
