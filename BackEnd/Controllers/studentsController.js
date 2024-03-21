@@ -5,13 +5,13 @@ exports.getAllStudents = (req, res) => {
   Student.findAll()
     .then(students => {
       if (!students || students.length === 0) {
-        return res.status(404).send('No students found');
+        return res.status(404).json({ error: 'No Students found' });
       }
       res.status(200).json(students);
     })
     .catch(error => {
       console.error('Error fetching students:', error);
-      res.status(500).send('Error fetching students');
+      res.status(500).json({ error: 'Error getting students' });
     });
 };
 
@@ -20,13 +20,13 @@ exports.getStudentById = (req, res) => {
   Student.findByPk(id)
     .then(student => {
       if (!student) {
-        return res.status(404).send('Student not found');
+        return res.status(404).json({ error: 'Student not found' });
       }
       res.status(200).json(student);
     })
     .catch(error => {
       console.error('Error fetching student by ID:', error);
-      res.status(500).send('Error fetching student by ID');
+      res.status(500).json({ error: 'Error getting student' });
     });
 };
 
@@ -43,7 +43,7 @@ exports.updateStudent = (req, res) => {
   Student.findByPk(id)
     .then(student => {
       if (!student) {
-        return res.status(404).send('Student not found');
+        return res.status(404).json({ error: 'Student not found' });
       }
       return Student.update(
         { fname, lname, birthdate, gender, email, country }, 
@@ -51,11 +51,11 @@ exports.updateStudent = (req, res) => {
       );
     })
     .then(() => {
-      res.status(200).send('Student updated successfully');
+      res.status(200).json({ success: true, message: 'Student updated successfully' });
     })
     .catch(error => {
       console.error('Error updating student:', error);
-      res.status(500).send('Error updating student');
+      res.status(500).json({ error: 'Error Updating student' });
     });
 };
 
@@ -64,15 +64,15 @@ exports.deleteStudent = (req, res) => {
   Student.findByPk(id)
     .then(student => {
       if (!student) {
-        return res.status(404).send('Student not found');
+        return res.status(404).json({ error: 'Student not found' });
       }
       return Student.destroy({ where: { id } });
     })
     .then(() => {
-      res.status(200).send('Student deleted successfully');
+      res.status(200).json({ success: true, message: 'Student deleted successfully' });
     })
     .catch(error => {
       console.error('Error deleting student:', error);
-      res.status(500).send('Error deleting student');
+      res.status(500).json({ error: 'Error deleting student' });
     });
 };

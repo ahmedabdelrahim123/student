@@ -50,7 +50,7 @@ const Student = sequelize.define('Student', {
 (async () => {
   try {
     await sequelize.sync();
-    console.log('Student table created successfully');
+    console.log('Database connected successfully');
   } catch (error) {
     console.error('Error syncing Student model:', error);
   }

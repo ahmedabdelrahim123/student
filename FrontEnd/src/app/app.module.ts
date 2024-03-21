@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { DataTableComponent } from './data-table/data-table.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteStudentComponent } from './delete-student/delete-student.component';
-
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +17,8 @@ import { DeleteStudentComponent } from './delete-student/delete-student.componen
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    NgbModalModule
   ],
   providers: [],
   bootstrap: [AppComponent]

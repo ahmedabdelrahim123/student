@@ -23,7 +23,8 @@
         <td>{{ student.email }}</td>
         <td>{{ student.country }}</td>
         <td>
-          <a [routerLink]="'/delete-student/' + student.id"><i class="fas fa-trash"></i></a>
+          <a (click)="deleteStudent(student.id)" data-tip="delete"><i class="fas fa-trash" style="color: rgb(13, 110, 253)"
+            ></i></a>
         </td>
       </tr>
     </tbody>
