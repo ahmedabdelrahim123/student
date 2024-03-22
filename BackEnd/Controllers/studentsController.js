@@ -32,32 +32,31 @@ exports.getStudentById = (req, res) => {
 
 exports.createStudent = (req, res) => {
   const studentData = req.body;
-  Student.create(studentData, (id) => {
-    res.status(201).json({ message: 'Student created successfully', id });
-  });
+  Student.create(studentData)
+    .then(createdStudent => {
+      res.status(201).json({ message: 'Student created successfully', student: createdStudent });
+    })
+    .catch(error => {
+      console.error('Error creating student:', error);
+      res.status(500).json({ error: 'Error Creating student' });
+    });
 };
+
 
 exports.updateStudent = (req, res) => {
   const { id } = req.params; 
-  const { fname, lname, birthdate, gender, email, country } = req.body; 
-  Student.findByPk(id)
-    .then(student => {
-      if (!student) {
-        return res.status(404).json({ error: 'Student not found' });
-      }
-      return Student.update(
-        { fname, lname, birthdate, gender, email, country }, 
-        { where: { id } } 
-      );
-    })
-    .then(() => {
-      res.status(200).json({ success: true, message: 'Student updated successfully' });
+  const studentData = req.body; 
+  Student.update(studentData, { where: { id } } )
+    .then(updatedStudent => {
+      res.status(201).json({ message: 'Student updated successfully', student: studentData });
     })
     .catch(error => {
       console.error('Error updating student:', error);
       res.status(500).json({ error: 'Error Updating student' });
     });
 };
+
+
 
 exports.deleteStudent = (req, res) => {
   const { id } = req.params; 

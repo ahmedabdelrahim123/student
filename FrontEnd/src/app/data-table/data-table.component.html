@@ -1,5 +1,5 @@
   <div class="mt-5 mb-5 container d-flex justify-content-end">   
-    <button class="btn btn-primary"><i class="me-1 fas fa-plus-circle"></i>Add New</button>
+    <button class="btn btn-primary" (click)="student_form(0)" data-tip="create"><i class="me-1 fas fa-plus-circle"></i>Add New</button>
   </div>  
 <div class="container "> 
 <table class="table table-bordered">
@@ -16,7 +16,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let student of students">
-        <td><a href="#">Edit</a></td>
+        <td><a (click)="student_form(student.id)" data-tip="edit" style="color: rgb(13, 110, 253); text-decoration: underline; " >Edit</a></td>
         <td>{{ student.name }}</td>
         <td>{{ student.age }}</td>
         <td>{{ student.gender }}</td>

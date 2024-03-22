@@ -18,11 +18,13 @@ export class DeleteStudentComponent {
     this.studentService.deleteStudent(this.id).subscribe(
       () => {
         
-        this.activeModal.close();
+        this.activeModal.close(1);
       },
-      (err) => console.log(err)
+      (err) =>{
+        console.log(err);
+        this.activeModal.close(0);
+      } 
     );
-    this.activeModal.close();
   }
 
   closeModel() {

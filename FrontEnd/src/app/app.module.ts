@@ -7,18 +7,22 @@ import { DataTableComponent } from './data-table/data-table.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteStudentComponent } from './delete-student/delete-student.component';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { StudentFormComponent } from './student-form/student-form.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
     DataTableComponent,
-    DeleteStudentComponent
+    DeleteStudentComponent,
+    StudentFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    NgbModalModule
+    NgbModalModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
