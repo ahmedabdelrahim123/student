@@ -10,6 +10,10 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class StudentFormComponent implements OnInit{
   student: any = {};
   @Input() id: number = 0;
+  @Input() students: any[] = [];
+  showEmailError: boolean = false;
+  errorMessage: string = '';
+  emailRegex: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   ngOnInit(): void {
     if (this.id != 0) {
       this.studentService.getStudentById(this.id).subscribe(
@@ -44,6 +48,9 @@ export class StudentFormComponent implements OnInit{
     "South Korea"
   ];
   saveStudent() {
+    if (!this.validateData()) {
+      return;
+    }
     if (this.id === 0) {
       this.studentService.createStudent(this.student).subscribe(
         (createdStudent: any) => {
@@ -68,6 +75,26 @@ export class StudentFormComponent implements OnInit{
     
   }
 
+  validateData(): boolean {
+    const isValidEmail = this.emailRegex.test(this.student.email);
+    const isEmailExists = this.students.some(student => student.email === this.student.email && student.id !== this.student.id);
+    if (!this.student || !this.student.email || !this.student.fname || !this.student.lname || !this.student.birthdate || !this.student.gender || !this.student.country) {
+      this.errorMessage = 'All fields are required';
+      this.showEmailError = true;
+      return false;
+    }
+    if (!isValidEmail) {
+      this.showEmailError = true;
+      this.errorMessage = 'Invalid Email Format';
+      return false;
+    } else if (isEmailExists) {
+      this.showEmailError = true;
+      this.errorMessage = 'This Email Already Exists';
+      return false;
+    }
+    this.showEmailError = false;
+    return true;
+  }
   closeModal() {
     this.activeModal.close();
   }

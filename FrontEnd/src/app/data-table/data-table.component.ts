@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentService } from '../student.service'; 
+import { StudentService } from '../student.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteStudentComponent } from '../delete-student/delete-student.component';
 import { StudentFormComponent } from '../student-form/student-form.component';
-
 
 @Component({
   selector: 'app-data-table',
@@ -11,73 +10,64 @@ import { StudentFormComponent } from '../student-form/student-form.component';
   styleUrls: ['./data-table.component.css']
 })
 export class DataTableComponent implements OnInit {
-  students:any;
+  students: any;
+  currentPage: number = 1;
+  studentsPerPage: number = 5; 
 
-  constructor(private studentService: StudentService,private modalService: NgbModal) { }
+  constructor(private studentService: StudentService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
+    this.loadStudents();
+  }
+
+  loadStudents(): void {
     this.studentService.getAllStudents().subscribe(
-      {
-        next: (data: any) => { 
-          console.log(data);
-          this.students = data.map((student: any) => {
-            student.name = `${student.fname} ${student.lname}`;
-            student.age = this.calculateAge(student.birthdate);
-            return student;
-          });
-        },
-        error: (error) => {
-          console.error('Error fetching students:', error);
-        }
+      (data: any) => {
+        this.students = data.map((student: any) => {
+          student.name = `${student.fname} ${student.lname}`;
+          student.age = this.calculateAge(student.birthdate);
+          return student;
+        });
+      },
+      (error) => {
+        console.error('Error fetching students:', error);
       }
     );
   }
-  
-  deleteStudent(id: number) {
+
+  deleteStudent(id: number): void {
     const deletedStudentModal = this.modalService.open(DeleteStudentComponent, {
       centered: true,
     });
     deletedStudentModal.componentInstance.id = id;
     if (deletedStudentModal.result) {
       deletedStudentModal.result.then((result) => {
-        if(result ===1){
-          this.students = this.students.filter((student: any) => student.id !== id); 
+        if (result === 1) {
+          this.loadStudents(); // Reload students after deletion
         }
       }).catch(error => {
         console.error("An error occurred:", error);
       });
     }
   }
+
   student_form(id: number): void {
     const studentFormModal = this.modalService.open(StudentFormComponent, {
       centered: true,
     });
-    
+
     studentFormModal.componentInstance.id = id;
+    studentFormModal.componentInstance.students = this.students;
     
     studentFormModal.result.then((result: any) => {
-      console.log("result",result);
-      if (result) {      
-        if (id === 0) {
-          result.student.name = `${result.student.fname} ${result.student.lname}`;
-          result.student.age = this.calculateAge(result.student.birthdate);
-          this.students.push(result.student); 
-        } else {
-          const existingStudentIndex = this.students.findIndex((student: any) => student.id === result.student.id);
-          if (existingStudentIndex !== -1) {
-            result.student.name = `${result.student.fname} ${result.student.lname}`;
-            result.student.age = this.calculateAge(result.student.birthdate);
-            this.students[existingStudentIndex] = result.student;
-          }
-        }
+      if (result) {
+        this.loadStudents(); 
       }
     }).catch(error => {
       console.error("An error occurred:", error);
     });
   }
-  
-  
-  // Function to calculate age from birthdate
+
   calculateAge(birthdate: string): number {
     const today = new Date();
     const birthDate = new Date(birthdate);
@@ -87,5 +77,17 @@ export class DataTableComponent implements OnInit {
       age--;
     }
     return age;
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+  }
+  get paginatedStudents(): any[] {
+    if (!this.students) {
+      return [];
+    } 
+    const startIndex = (this.currentPage - 1) * this.studentsPerPage;
+    const endIndex = Math.min(startIndex + this.studentsPerPage, this.students.length);
+    return this.students.slice(startIndex, endIndex);
   }
 }

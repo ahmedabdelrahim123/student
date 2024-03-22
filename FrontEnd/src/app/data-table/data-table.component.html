@@ -1,8 +1,11 @@
-  <div class="mt-5 mb-5 container d-flex justify-content-end">   
-    <button class="btn btn-primary" (click)="student_form(0)" data-tip="create"><i class="me-1 fas fa-plus-circle"></i>Add New</button>
-  </div>  
-<div class="container "> 
-<table class="table table-bordered">
+<div class="mt-5 mb-5 container d-flex justify-content-end">   
+  <button class="btn btn-primary" (click)="student_form(0)" data-tip="create">
+    <i class="me-1 fas fa-plus-circle"></i>Add New
+  </button>
+</div>  
+
+<div class="container"> 
+  <table class="table table-bordered">
     <thead>
       <tr>
         <th></th>
@@ -15,19 +18,35 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let student of students">
-        <td><a (click)="student_form(student.id)" data-tip="edit" style="color: rgb(13, 110, 253); text-decoration: underline; " >Edit</a></td>
+      <tr *ngFor="let student of paginatedStudents">
+        <td><a (click)="student_form(student.id)" data-tip="edit" style="color: rgb(13, 110, 253); text-decoration: underline;">Edit</a></td>
         <td>{{ student.name }}</td>
         <td>{{ student.age }}</td>
         <td>{{ student.gender }}</td>
         <td>{{ student.email }}</td>
         <td>{{ student.country }}</td>
         <td>
-          <a (click)="deleteStudent(student.id)" data-tip="delete"><i class="fas fa-trash" style="color: rgb(13, 110, 253)"
-            ></i></a>
+          <a (click)="deleteStudent(student.id)" data-tip="delete">
+            <i class="fas fa-trash" style="color: rgb(13, 110, 253)"></i>
+          </a>
         </td>
       </tr>
     </tbody>
   </table>
-</div> 
 
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-sm-6 col-xs-6">
+        <ngb-pagination
+          *ngIf="students"
+          [collectionSize]="students.length"
+          [pageSize]="studentsPerPage"
+          [(page)]="currentPage"
+          size="sm"
+          aria-label="Students Pagination"
+          (pageChange)="onPageChange($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  </div>
+</div>
