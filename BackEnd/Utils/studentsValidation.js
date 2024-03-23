@@ -25,7 +25,7 @@ const studentSchema = {
       country: { type: "string" }
     },
     required: ["fname", "lname", "birthdate", "gender", "email", "country"],
-    additionalProperties: false,
+    additionalProperties: true,
   };
 
 module.exports = ajv.compile(studentSchema);

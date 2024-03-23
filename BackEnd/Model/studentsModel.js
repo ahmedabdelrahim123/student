@@ -34,11 +34,6 @@ const Student = sequelize.define('Student', {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
-    validate: {
-      isEmail: {
-        msg: "Invalid email format" 
-      }
-    }
   },
   country: {
     type: DataTypes.STRING,
