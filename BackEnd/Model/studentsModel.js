@@ -46,7 +46,6 @@ const Student = sequelize.define('Student', {
   }
 });
 
-// Synchronize the model with the database
 (async () => {
   try {
     await sequelize.sync();
@@ -56,5 +55,4 @@ const Student = sequelize.define('Student', {
   }
 })();
 
-// Export the Student model
 module.exports = Student;
