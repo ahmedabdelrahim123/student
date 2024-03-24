@@ -9,6 +9,8 @@ import { DeleteStudentComponent } from './delete-student/delete-student.componen
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { StudentFormComponent } from './student-form/student-form.component';
 import { FormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,8 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     NgbModule,
     NgbModalModule,
-    FormsModule
+    FormsModule,
+    NgSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

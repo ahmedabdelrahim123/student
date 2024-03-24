@@ -1,5 +1,5 @@
 <div class="mt-5 mb-5 container d-flex justify-content-end">   
-  <button class="btn btn-primary" (click)="student_form(0)" data-tip="create">
+  <button class="btn btn-primary" (click)="student_form(0)" >
     <i class="me-1 fas fa-plus-circle"></i>Add New
   </button>
 </div>  
@@ -19,14 +19,14 @@
     </thead>
     <tbody>
       <tr *ngFor="let student of paginatedStudents">
-        <td><a (click)="student_form(student.id)" data-tip="edit" style="color: rgb(13, 110, 253); text-decoration: underline;">Edit</a></td>
+        <td><a (click)="student_form(student.id)" style="color: rgb(13, 110, 253); text-decoration: underline;">Edit</a></td>
         <td>{{ student.name }}</td>
         <td>{{ student.age }}</td>
         <td>{{ student.gender }}</td>
         <td>{{ student.email }}</td>
         <td>{{ student.country }}</td>
         <td>
-          <a (click)="deleteStudent(student.id)" data-tip="delete">
+          <a (click)="deleteStudent(student.id)" >
             <i class="fas fa-trash" style="color: rgb(13, 110, 253)"></i>
           </a>
         </td>

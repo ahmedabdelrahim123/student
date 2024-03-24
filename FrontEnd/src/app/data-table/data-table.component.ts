@@ -36,14 +36,12 @@ export class DataTableComponent implements OnInit {
   }
 
   deleteStudent(id: number): void {
-    const deletedStudentModal = this.modalService.open(DeleteStudentComponent, {
-      centered: true,
-    });
+    const deletedStudentModal = this.modalService.open(DeleteStudentComponent);
     deletedStudentModal.componentInstance.id = id;
     if (deletedStudentModal.result) {
       deletedStudentModal.result.then((result) => {
         if (result === 1) {
-          this.loadStudents(); // Reload students after deletion
+          this.loadStudents();
         }
       }).catch(error => {
         console.error("An error occurred:", error);

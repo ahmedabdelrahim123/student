@@ -41,15 +41,22 @@
         <label for="gender" class="form-label">Gender</label>
       </div>
       <div class="col-md-9">
-        <div class="form-check">
-          <input class="form-check-input" type="radio" id="male" name="gender" value="male" [(ngModel)]="student.gender" required>
-          <label class="form-check-label" for="male">Male</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" id="female" name="gender" value="female" [(ngModel)]="student.gender" required>
-          <label class="form-check-label" for="female">Female</label>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="male" name="gender" value="male" [(ngModel)]="student.gender" required>
+              <label class="form-check-label" for="male">Male</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="female" name="gender" value="female" [(ngModel)]="student.gender" required>
+              <label class="form-check-label" for="female">Female</label>
+            </div>
+          </div>
         </div>
       </div>
+      
     </div>
 
     <div class="row mb-3">
@@ -57,18 +64,23 @@
         <label for="birthdate" class="form-label">Birthdate</label>
       </div>
       <div class="col-md-9">
-        <input type="date" class="form-control" id="birthdate" name="birthdate" [(ngModel)]="student.birthdate" required>
-      </div>
+        <ngb-datepicker class="form-control" id="birthdate" name="birthdate" [(ngModel)]="student.birthdate" [startDate]="{ year: student.birthdate?.year, month: student.birthdate?.month, day: student.birthdate?.day }"[minDate]="{year:1990 ,month: 1, day: 1 }" [maxDate]="{ year: currentYear, month: 12, day: 31 }"></ngb-datepicker>
+      </div>          
     </div>
 
     <div class="row mb-3">
       <div class="col-md-3">
         <label for="country" class="form-label">Country</label>
       </div>
-      <div class="col-md-9">
-        <select class="form-select" id="country" name="country" [(ngModel)]="student.country" required>
-          <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
-        </select>
+      <div class="col-md-9 "> 
+        <ng-select class="form-select" 
+        id="country" 
+        name="country" 
+        [items]="countries"
+        [(ngModel)]="student.country"
+        required>
+        </ng-select>
+        
       </div>
     </div>
     <div class="modal-footer">
