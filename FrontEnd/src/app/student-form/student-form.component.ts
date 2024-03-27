@@ -90,8 +90,7 @@ export class StudentFormComponent implements OnInit{
 
 format_bd(): string {
   const birthdate = this.student.birthdate;
-  // Adjust the month by adding 1 because ngb-datepicker months are zero-based
-  const month = birthdate.month < 9 ? '0' + (birthdate.month + 1) : (birthdate.month + 1);
+  const month = birthdate.month < 10 ? '0' + (birthdate.month ) : (birthdate.month );
   const day = birthdate.day < 10 ? '0' + birthdate.day : birthdate.day;
   return `${birthdate.year}-${month}-${day}`;
 }

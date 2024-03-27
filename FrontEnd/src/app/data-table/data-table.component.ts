@@ -59,6 +59,7 @@ export class DataTableComponent implements OnInit {
     
     studentFormModal.result.then((result: any) => {
       if (result) {
+        this.onPageChange(1);
         this.loadStudents(); 
       }
     }).catch(error => {
